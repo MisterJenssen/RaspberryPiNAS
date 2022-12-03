@@ -8,6 +8,9 @@ filelocation="/lib/systemd/system/${moodlight_svc}.service"
 oled_svc="minitower_oled.service"
 svclocation="/lib/systemd/system/${oled_svc}"
 
+fan_pwm_svc="minitower_fan_pwm.service"
+fan_pwm_svc_location="/lib/systemd/system/${fan_pwm_svc}"
+
 log_action_msg "Uninstalling minitower moodlight Driver..."
 sleep 1
 
@@ -22,10 +25,15 @@ log_action_msg "Stop and disable ${oled_svc}"
 sudo systemctl disable ${oled_svc} 2&>/dev/null  
 sudo systemctl stop ${oled_svc}  2&>/dev/null
 
+log_action_msg "Stop and disable ${fan_pwm_svc}"
+sudo systemctl disable ${fan_pwm_svc} 2&>/dev/null  
+sudo systemctl stop ${fan_pwm_svc}  2&>/dev/null
+
 log_action_msg "Remove Minitower kit Driver..."
 sudo rm -f  /lib/systemd/system/minitower_moodlight.service  2&>/dev/null 
 sudo rm -f /usr/bin/moodlight 2&>/dev/null 
 sudo rm -rf /lib/systemd/system/minitower_oled.service 2&>/dev/null
+sudo rm -rf /lib/systemd/system/minitower_fan_pwm.service 2&>/dev/null
 
 sudo rm -rf /usr/local/luma.examples/ 2&>/dev/null
 sudo rm -rf /usr/local/rpi_ws281x/ 2&>/dev/null

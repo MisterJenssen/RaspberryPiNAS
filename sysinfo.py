@@ -43,26 +43,32 @@ def cpu_usage():
     return "Ld:%.1f %.1f %.1f " % (av1, av2, av3)
 
 
-def uptime_usage():
+#def uptime_usage():
     # uptime, Ip
-    uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
+#    uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
+#    ip = sp.getoutput("hostname -I").split(' ')[0]
+#    return "Up: %s,IP:%s" % (uptime, ip)
+
+def ip_address():
     ip = sp.getoutput("hostname -I").split(' ')[0]
-    return "Up: %s,IP:%s" % (uptime, ip)
+    return "IP: %s" % (ip)
     
-
-
-
 
 def mem_usage():
     usage = psutil.virtual_memory()
     return "Mem: %s %.0f%%" \
-        % (bytes2human(usage.used), 100 - usage.percent)
+        % (bytes2human(usage.used), usage.percent)
 
 
 def disk_usage(dir):
     usage = psutil.disk_usage(dir)
     return "SD:  %s %.0f%%" \
         % (bytes2human(usage.used), usage.percent)
+
+
+def cpu_temperature():
+    temperature = sp.getoutput("vcgencmd measure_temp|egrep -o '[0-9]*\.[0-9]*'")
+    return "Temp: %s°" % (temperature)
 
 
 def network(iface):
@@ -83,13 +89,8 @@ def stats(device):
 
         if device.height >= 64:
             draw.text((0, 24), disk_usage('/'), font=font2, fill="white")
-            try:
-                draw.text((0, 36), network('wlan0'), font=font2, fill="white")
-                draw.text((0, 48), uptime_usage(), font=font2, fill="white")
-
-            except KeyError:
-                # no wifi enabled/available
-                pass
+            draw.text((0, 36), cpu_temperature(), font=font2, fill="white")
+            draw.text((0, 48), ip_address(), font=font2, fill="white")
 
 
 device = get_device()

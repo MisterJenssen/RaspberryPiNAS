@@ -98,8 +98,7 @@ sudo echo "[Service]" >> ${oled_svc_file}
 sudo echo "RootDirectory=/" >> ${oled_svc_file}
 sudo echo "User=root" >> ${oled_svc_file}
 sudo echo "Type=forking" >> ${oled_svc_file}
-sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/luma.examples/examples/sysinfo.py &'" >> ${oled_svc_file}
-sudo echo "# ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/luma.examples/examples/clock.py &'" >> ${oled_svc_file}
+sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/RaspberryPiNAS/sysinfo.py &'" >> ${oled_svc_file}
 sudo echo "RemainAfterExit=yes" >> ${oled_svc_file}
 sudo echo "Restart=always" >> ${oled_svc_file}
 sudo echo "RestartSec=30" >> ${oled_svc_file}
@@ -115,6 +114,39 @@ log_action_msg "Minitower Service Load module."
 systemctl daemon-reload
 systemctl enable ${oled_svc}.service
 systemctl restart ${oled_svc}.service 
+
+
+# fan PWM service.
+fan_pwm_svc="minitower_fan_pwm"
+fan_pwm_svc_file="/lib/systemd/system/${fan_pwm_svc}.service"
+sudo rm -f ${fan_pwm_svc_file}
+
+sudo echo "[Unit]" > ${fan_pwm_svc_file}
+sudo echo "Description=Minitower fan PWM Service" >> ${fan_pwm_svc_file}
+sudo echo "DefaultDependencies=no" >> ${fan_pwm_svc_file}
+sudo echo "StartLimitIntervalSec=60" >> ${fan_pwm_svc_file}
+sudo echo "StartLimitBurst=5" >> ${fan_pwm_svc_file}
+sudo echo "[Service]" >> ${fan_pwm_svc_file}
+sudo echo "RootDirectory=/" >> ${fan_pwm_svc_file}
+sudo echo "User=root" >> ${fan_pwm_svc_file}
+sudo echo "Type=forking" >> ${fan_pwm_svc_file}
+sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/RaspberryPiNAS/fan_pwm.py &'" >> ${fan_pwm_svc_file}
+sudo echo "RemainAfterExit=yes" >> ${fan_pwm_svc_file}
+sudo echo "Restart=always" >> ${fan_pwm_svc_file}
+sudo echo "RestartSec=30" >> ${fan_pwm_svc_file}
+sudo 
+sudo echo "[Install]" >> ${fan_pwm_svc_file}
+sudo echo "WantedBy=multi-user.target" >> ${fan_pwm_svc_file}
+
+log_action_msg "Minitower Service configuration finished." 
+sudo chown root:root ${fan_pwm_svc_file}
+sudo chmod 644 ${fan_pwm_svc_file}
+
+log_action_msg "Minitower Service Load module." 
+systemctl daemon-reload
+systemctl enable ${fan_pwm_svc}.service
+systemctl restart ${fan_pwm_svc}.service 
+
 
 # Finished 
 log_success_msg "Minitower service installation finished successfully." 
