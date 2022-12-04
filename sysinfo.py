@@ -40,7 +40,7 @@ def bytes2human(n):
 def cpu_usage():
     # load average
     av1, av2, av3 = os.getloadavg()
-    return "Ld:%.1f %.1f %.1f " % (av1, av2, av3)
+    return "Ld: %.1f %.1f %.1f " % (av1, av2, av3)
 
 
 #def uptime_usage():
@@ -56,13 +56,13 @@ def ip_address():
 
 def mem_usage():
     usage = psutil.virtual_memory()
-    return "Mem:  %s %.0f%%" \
+    return "Mem:  %s %.1f%%" \
         % (bytes2human(usage.used), usage.percent)
 
 
 def disk_usage(dir):
     usage = psutil.disk_usage(dir)
-    return "NAS:  %s %.0f%%" \
+    return "NAS:  %s %.1f%%" \
         % (bytes2human(usage.used), usage.percent)
 
 
