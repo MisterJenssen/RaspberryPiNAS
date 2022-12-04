@@ -56,13 +56,13 @@ def ip_address():
 
 def mem_usage():
     usage = psutil.virtual_memory()
-    return "Mem: %s %.0f%%" \
+    return "Mem:  %s %.0f%%" \
         % (bytes2human(usage.used), usage.percent)
 
 
 def disk_usage(dir):
     usage = psutil.disk_usage(dir)
-    return "SD:  %s %.0f%%" \
+    return "NAS:  %s %.0f%%" \
         % (bytes2human(usage.used), usage.percent)
 
 
@@ -83,16 +83,13 @@ def stats(device):
     font2 = ImageFont.truetype(font_path, 11)
 
     with canvas(device) as draw:
-        draw.text((0, 1), cpu_usage(), font=font2, fill="white")
-        if device.height >= 32:
-            draw.text((0, 12), mem_usage(), font=font2, fill="white")
-
-        if device.height >= 64:
-            draw.text((0, 24), disk_usage('/'), font=font2, fill="white")
-            draw.text((0, 36), cpu_temperature(), font=font2, fill="white")
-            draw.text((0, 48), ip_address(), font=font2, fill="white")
-
-
+        draw.text((0, 1), ip_address(), font=font2, fill="white")
+        draw.text((0, 12), cpu_usage(), font=font2, fill="white")
+        draw.text((0, 24), cpu_temperature(), font=font2, fill="white")
+        draw.text((0, 36), mem_usage(), font=font2, fill="white")
+        draw.text((0, 48), disk_usage('/mnt'), font=font2, fill="white")
+        
+        
 device = get_device()
 
 while True:
