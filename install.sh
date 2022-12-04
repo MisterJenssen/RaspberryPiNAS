@@ -53,6 +53,9 @@ if [ -f /usr/bin/moodlight ]; then
    log_action_msg "moodlight driver install successfully"
 fi
 
+# file location folder.
+file_location_folder="home/pi/RaspberryPiNAS"
+
 # mood light service.
 moodlight_svc="minitower_moodlight"
 moodlight_svc_file="/lib/systemd/system/${moodlight_svc}.service"
@@ -98,7 +101,7 @@ sudo echo "[Service]" >> ${oled_svc_file}
 sudo echo "RootDirectory=/" >> ${oled_svc_file}
 sudo echo "User=root" >> ${oled_svc_file}
 sudo echo "Type=forking" >> ${oled_svc_file}
-sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/RaspberryPiNAS/sysinfo.py &'" >> ${oled_svc_file}
+sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 ${file_location_folder}/sysinfo.py &'" >> ${oled_svc_file}
 sudo echo "RemainAfterExit=yes" >> ${oled_svc_file}
 sudo echo "Restart=always" >> ${oled_svc_file}
 sudo echo "RestartSec=30" >> ${oled_svc_file}
@@ -130,7 +133,7 @@ sudo echo "[Service]" >> ${fan_pwm_svc_file}
 sudo echo "RootDirectory=/" >> ${fan_pwm_svc_file}
 sudo echo "User=root" >> ${fan_pwm_svc_file}
 sudo echo "Type=forking" >> ${fan_pwm_svc_file}
-sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 /usr/local/RaspberryPiNAS/fan_pwm.py &'" >> ${fan_pwm_svc_file}
+sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 ${file_location_folder}/fan_pwm.py &'" >> ${fan_pwm_svc_file}
 sudo echo "RemainAfterExit=yes" >> ${fan_pwm_svc_file}
 sudo echo "Restart=always" >> ${fan_pwm_svc_file}
 sudo echo "RestartSec=30" >> ${fan_pwm_svc_file}

@@ -1,12 +1,15 @@
 [Unit]
 Description=Minitower fan PWM Service
-
+DefaultDependencies=no
+StartLimitIntervalSec=60
+StartLimitBurst=5
 [Service]
-Type=forking
+RootDirectory=/
 User=root
-ExecStart=/bin/bash -c 'python3 /usr/local/pwm_fan.py &'
+Type=forking
+ExecStart=/bin/bash -c '/usr/bin/python3 home/pi/RaspberryPiNAS/fan_pwm.py &'
+RemainAfterExit=yes
 Restart=always
 RestartSec=30
-
 [Install]
 WantedBy=multi-user.target
