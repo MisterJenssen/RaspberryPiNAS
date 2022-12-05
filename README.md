@@ -48,3 +48,5 @@ https://www.makeuseof.com/how-to-set-up-raid-1-on-the-raspberry-pi/
 https://www.seeedstudio.com/blog/2019/12/24/how-to-build-a-raspberry-pi-4-nas-server-samba-and-omv/
 
 NOTE: OMV will only work on the headless version of Raspbian OS
+
+NOTE: When adding a user to control your NAS, make sure it has also the necessary r/w/x access to the NAS folder
