@@ -50,4 +50,4 @@ https://www.seeedstudio.com/blog/2019/12/24/how-to-build-a-raspberry-pi-4-nas-se
 
 NOTE: OMV will only work on the headless version of Raspbian OS
 
-NOTE: When adding a user to control your NAS, make sure it has also the necessary r/w/x access to the NAS folder
+NOTE: When adding a user to control your NAS, make sure the user has the necessary r/w/x access to the NAS folder
