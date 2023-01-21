@@ -43,13 +43,13 @@ if __name__ == '__main__':
         print('Use "-c" argument to clear LEDs on exit')
 
     try:
-
-        while True:
-            print('Color wipe animations.')
-            setColor(strip, Color(50, 0, 0))  # Red wipe
-            setColor(strip, Color(0, 50, 0))  # Green wipe
-            setColor(strip, Color(0, 0, 50))  # Blue wipe
+        print('Starting process')
+        while True:            
+            setColor(strip, Color(30, 0, 0), 2000)  # Red wipe
+            setColor(strip, Color(0, 30, 0), 2000)  # Green wipe
+            setColor(strip, Color(0, 0, 30), 2000)  # Blue wipe
 
     except KeyboardInterrupt:
         if args.clear:
-            setColor(strip, Color(0, 0, 0))
+            print('Stopping process')
+            setColor(strip, Color(0, 0, 0), 100)
