@@ -33,7 +33,7 @@ cd /usr/local/
 if [ ! -d rpi_ws281x ]; then
    cd /usr/local/
    sudo git clone https://github.com/jgarff/rpi_ws281x && log_action_msg "Download moodlight driver finished..." || log_warning_msg "Could not access github repository, please check the internet connections!!!" 
-   cd rpi_ws281x/ && sudo scons && mkdir build && cd build/ && cmake -D BUILD_SHARED=OFF -D BUILD_TEST=ON .. && sudo make install && sudo cp ./test /usr/bin/moodlight  && log_action_msg "Installation finished..." || log_warning_msg "Installation process failed! Please try again..."
+   cd rpi_ws281x/ && sudo scons && mkdir build && cd build/ && cmake -D BUILD_SHARED=OFF -D BUILD_TEST=ON .. && sudo make install && log_action_msg "Installation finished..." || log_warning_msg "Installation process failed! Please try again..."
 fi
 
 # Enable i2c function on raspberry pi.
