@@ -78,11 +78,11 @@ sudo echo "RestartSec=30" >> ${oled_svc_file}
 sudo echo "[Install]" >> ${oled_svc_file}
 sudo echo "WantedBy=multi-user.target" >> ${oled_svc_file}
 
-log_action_msg "Minitower Service configuration finished." 
+log_action_msg "Minitower Service configuration ${oled_svc} finished." 
 sudo chown root:root ${oled_svc_file}
 sudo chmod 644 ${oled_svc_file}
 
-log_action_msg "Minitower Service Load module." 
+log_action_msg "Minitower Service Load ${oled_svc} module." 
 systemctl daemon-reload
 systemctl enable ${oled_svc}.service
 systemctl restart ${oled_svc}.service 
@@ -109,15 +109,14 @@ sudo echo "RestartSec=30" >> ${fan_pwm_svc_file}
 sudo echo "[Install]" >> ${fan_pwm_svc_file}
 sudo echo "WantedBy=multi-user.target" >> ${fan_pwm_svc_file}
 
-log_action_msg "Minitower Service configuration finished." 
+log_action_msg "Minitower Service configuration ${fan_pwm_svc} finished." 
 sudo chown root:root ${fan_pwm_svc_file}
 sudo chmod 644 ${fan_pwm_svc_file}
 
-log_action_msg "Minitower Service Load module." 
+log_action_msg "Minitower Service Load ${fan_pwm_svc} module." 
 systemctl daemon-reload
 systemctl enable ${fan_pwm_svc}.service
 systemctl restart ${fan_pwm_svc}.service 
-
 
 # Finished 
 log_success_msg "Minitower service installation finished successfully." 
