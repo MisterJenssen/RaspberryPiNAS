@@ -56,39 +56,9 @@ fi
 # file location folder.
 file_location_folder="home/pi/RaspberryPiNAS"
 
-# mood light service.
-moodlight_svc="minitower_moodlight"
-moodlight_svc_file="/lib/systemd/system/${moodlight_svc}.service"
-sudo rm -f ${moodlight_svc_file}
 
-sudo echo "[Unit]" > ${moodlight_svc_file}
-sudo echo "Description=Minitower moodlight Service" >> ${moodlight_svc_file}
-sudo echo "DefaultDependencies=no" >> ${moodlight_svc_file}
-sudo echo "StartLimitIntervalSec=60" >> ${moodlight_svc_file}
-sudo echo "StartLimitBurst=5" >> ${moodlight_svc_file}
-sudo echo "[Service]" >> ${moodlight_svc_file}
-sudo echo "RootDirectory=/ " >> ${moodlight_svc_file}
-sudo echo "User=root" >> ${moodlight_svc_file}
-sudo echo "Type=simple" >> ${moodlight_svc_file}
-sudo echo "ExecStart=sudo /usr/bin/moodlight &" >> ${moodlight_svc_file}
-sudo echo "RemainAfterExit=yes" >> ${moodlight_svc_file}
-sudo echo "Restart=always" >> ${moodlight_svc_file}
-sudo echo "RestartSec=30" >> ${moodlight_svc_file}
-sudo echo "[Install]" >> ${moodlight_svc_file}
-sudo echo "WantedBy=multi-user.target" >> ${moodlight_svc_file}
-
-log_action_msg "Minitower moodlight service installation finished." 
-sudo chown root:root ${moodlight_svc_file}
-sudo chmod 644 ${moodlight_svc_file}
-
-log_action_msg "Minitower moodlight Service Load module." 
-sudo systemctl daemon-reload
-sudo systemctl enable ${moodlight_svc}.service
-sudo systemctl restart ${moodlight_svc}.service
-
-
-# oled screen display service.
-oled_svc="minitower_oled"
+# oled screen display & moodlight service.
+oled_svc="minitower_display_moodlight"
 oled_svc_file="/lib/systemd/system/${oled_svc}.service"
 sudo rm -f ${oled_svc_file}
 
