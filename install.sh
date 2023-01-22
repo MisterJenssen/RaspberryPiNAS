@@ -75,7 +75,6 @@ sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 ${file_location_folder}/sysi
 sudo echo "RemainAfterExit=yes" >> ${oled_svc_file}
 sudo echo "Restart=always" >> ${oled_svc_file}
 sudo echo "RestartSec=30" >> ${oled_svc_file}
-sudo 
 sudo echo "[Install]" >> ${oled_svc_file}
 sudo echo "WantedBy=multi-user.target" >> ${oled_svc_file}
 
@@ -107,7 +106,6 @@ sudo echo "ExecStart=/bin/bash -c '/usr/bin/python3 ${file_location_folder}/fan_
 sudo echo "RemainAfterExit=yes" >> ${fan_pwm_svc_file}
 sudo echo "Restart=always" >> ${fan_pwm_svc_file}
 sudo echo "RestartSec=30" >> ${fan_pwm_svc_file}
-sudo 
 sudo echo "[Install]" >> ${fan_pwm_svc_file}
 sudo echo "WantedBy=multi-user.target" >> ${fan_pwm_svc_file}
 
