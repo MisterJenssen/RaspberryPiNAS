@@ -8,6 +8,7 @@
 import os
 import sys
 import time
+import atexit
 from pathlib import Path
 from datetime import datetime
 from demo_opts import get_device
@@ -130,12 +131,17 @@ def checkValidIP(ip_address, color):
 def controlMoodLight(ip_address, temperature):
     if float(temperature) > 80.0:
         color = COLOR_RED
-    elif float(temperature) > 65.0:    
+    elif float(temperature) > 60.0:    
         color = checkValidIP(ip_address, COLOR_ORANGE)
-    elif float(temperature) < 50.0:
+    else:
         color = checkValidIP(ip_address, COLOR_GREEN)
     setColor(strip, color, 0)
 
+
+def exitHandler():
+    print('Stopping process')
+    setColor(strip, Color(0, 0, 0), 100)
+    
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -149,27 +155,26 @@ if __name__ == '__main__':
 
     # Create NeoPixel object with appropriate configuration.
     strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+    
     # Intialize the library (must be called once before other functions).
     strip.begin()
+    
+    # Configure exit handler
+    atexit.register(exitHandler)
 
     print('Press Ctrl-C to quit.')
 
-    try:
-        print('Starting process')
-        while True:
-            ip = get_ip_address()
-            temperature = get_cpu_temperature()            
-            
-            print_stats(device,
-                        get_stats_ip_address_string(ip),
-                        cpu_usage(),
-                        get_stats_cpu_temperature_string(temperature),
-                        mem_usage(),
-                        disk_usage('/mnt'))
-            
-            controlMoodLight(ip, temperature)
-            time.sleep(5)
-
-    except KeyboardInterrupt:
-        print('Stopping process')
-        setColor(strip, Color(0, 0, 0), 100)
+    print('Starting process')
+    while True:
+        ip = get_ip_address()
+        temperature = get_cpu_temperature()            
+        
+        print_stats(device,
+                    get_stats_ip_address_string(ip),
+                    cpu_usage(),
+                    get_stats_cpu_temperature_string(temperature),
+                    mem_usage(),
+                    disk_usage('/mnt'))
+        
+        controlMoodLight(ip, temperature)
+        time.sleep(5)
