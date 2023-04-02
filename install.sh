@@ -1,5 +1,11 @@
 #!/bin/bash
 # 
+
+echo -n "Please enter username: "
+read username
+
+echo "User: $username"
+
 . /lib/lsb/init-functions
 sudo apt update && sudo apt -y -q install git cmake scons python3-dev || log_action_msg "please check internet connection and make sure it can access internet!" 
 
@@ -14,16 +20,16 @@ if [ $? -eq 0 ]; then
 fi
 
 # grant privilledges to user pi.
-sudo usermod -a -G gpio,i2c pi && log_action_msg "grant privilledges to user pi" || log_warning_msg "Grant privilledges failed!" 
+sudo usermod -a -G gpio,i2c $username && log_action_msg "grant privilledges to user $username" || log_warning_msg "Grant privilledges failed!" 
 
 # download driver from internet 
 cd /usr/local/ 
 if [ ! -d luma.examples ]; then
    cd /usr/local/
-   git clone https://github.com/rm-hull/luma.examples.git && cd /usr/local/luma.examples/ && sudo cp -f /home/pi/absminitowerkit/sysinfo.py . || log_warning_msg "Could not download repository from github, please check the internet connection..." 
+   git clone https://github.com/rm-hull/luma.examples.git && cd /usr/local/luma.examples/ && sudo cp -f /home/$username/absminitowerkit/sysinfo.py . || log_warning_msg "Could not download repository from github, please check the internet connection..." 
 else
    # copy sysinfo.py application to /usr/local/luma.examples/examples/ folder.
-   sudo cp -vf /home/pi/absminitowerkit/sysinfo.py /usr/local/luma.examples/examples/ 2>/dev/null
+   sudo cp -vf /home/$username/absminitowerkit/sysinfo.py /usr/local/luma.examples/examples/ 2>/dev/null
 fi 
 
 cd /usr/local/luma.examples/  && sudo -H pip3 install -e . && log_action_msg "Install dependencies packages successfully..." || log_warning_msg "Cound not access github repository, please check the internet connections!!!" 
@@ -54,7 +60,7 @@ if [ -f /usr/bin/moodlight ]; then
 fi
 
 # file location folder.
-file_location_folder="home/pi/RaspberryPiNAS"
+file_location_folder="home/$username/RaspberryPiNAS"
 
 
 # oled screen display & moodlight service.
@@ -124,5 +130,3 @@ log_success_msg "Minitower service installation finished successfully."
 # greetings and require rebooting system to take effect.
 log_action_msg "Please reboot Raspberry Pi and Have fun!" 
 sudo sync
-
-
