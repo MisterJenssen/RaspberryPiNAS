@@ -23,11 +23,11 @@ def measure_temp():
 def set_duty_cycle(temperature):
 #    print("AVG: " + str(temperature))
     
-    if float(temperature) > 80.0:
+    if float(temperature) >= 80.0:
         dutycycle = 100
-    elif float(temperature) > 50.0:    
+    elif float(temperature) >= 50.0:    
         dutycycle = map_range(float(temperature), 50.0, 80.0, 20.0, 100.0)
-    elif float(temperature) < 49.0:
+    elif float(temperature) <= 49.0:
         dutycycle = 0        
         
 #    print("DC: " + str(dutycycle))     
