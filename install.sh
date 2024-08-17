@@ -1,5 +1,4 @@
 #!/bin/bash
-# 
 
 echo -n "Please enter username: "
 read username
