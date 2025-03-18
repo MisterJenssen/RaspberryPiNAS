@@ -13,10 +13,10 @@ log_action_msg "Check dependencies and install deps packages..."
 sudo apt -y install python3 python3-pip python3-pil python3-rpi.gpio python3-numpy python3-luma.oled python3-psutil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff6 && log_action_msg "deps packages installed successfully!" || log_warning_msg "deps packages install process failed, please check the internet connection..." 
 
 # install psutil lib.
-sudo -H pip3 install psutil
-if [ $? -eq 0 ]; then
-	log_action_msg "psutil library has been installed successfully."
-fi
+# sudo -H pip3 install psutil
+# if [ $? -eq 0 ]; then
+#	log_action_msg "psutil library has been installed successfully."
+# fi
 
 # grant privilledges to user pi.
 sudo usermod -a -G gpio,i2c $username && log_action_msg "grant privilledges to user $username" || log_warning_msg "Grant privilledges failed!" 
@@ -31,7 +31,7 @@ else
    sudo cp -vf /home/$username/absminitowerkit/sysinfo.py /usr/local/luma.examples/examples/ 2>/dev/null
 fi 
 
-cd /usr/local/luma.examples/  && sudo -H pip3 install -e . && log_action_msg "Install dependencies packages successfully..." || log_warning_msg "Cound not access github repository, please check the internet connections!!!" 
+cd /usr/local/luma.examples/  && sudo -H pip3 install -e .  --break-system-packages && log_action_msg "Install dependencies packages successfully..." || log_warning_msg "Cound not access github repository, please check the internet connections!!!" 
 
 # download rpi_ws281x libraries.
 cd /usr/local/ 
