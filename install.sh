@@ -10,7 +10,7 @@ sudo apt update && sudo apt -y -q install git cmake scons python3-dev || log_act
 
 # install libraries. 
 log_action_msg "Check dependencies and install deps packages..."
-sudo apt -y install python3 python3-pip python3-pil libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff5 && log_action_msg "deps packages installed successfully!" || log_warning_msg "deps packages install process failed, please check the internet connection..." 
+sudo apt -y install python3 python3-pip python3-pil python3-rpi.gpio python3-numpy libjpeg-dev zlib1g-dev libfreetype6-dev liblcms2-dev libopenjp2-7 libtiff6 && log_action_msg "deps packages installed successfully!" || log_warning_msg "deps packages install process failed, please check the internet connection..." 
 
 # install psutil lib.
 sudo -H pip3 install psutil
